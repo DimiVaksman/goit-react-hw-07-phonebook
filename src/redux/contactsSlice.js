@@ -1,26 +1,64 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import { fetchContacts, addContact, deleteContact } from './operations';
 const initialState = {
-  items: [
-    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  ],
+  items: [],
+  isLoading: false,
+  error: null,
+};
+
+const pending = state => {
+  return {
+    ...state,
+    isLoading: true,
+  };
+};
+
+const rejected = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    error: action.payload,
+  };
+};
+
+//___________________________________FETCH----POST-----DELETE_______________
+
+const contactsFetch = (state, action) => {
+  return { ...state, isLoading: false, error: null, items: action.payload };
+};
+
+const addContacts = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    error: null,
+    items: [action.payload, ...state.items],
+  };
+};
+
+const delContacts = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    error: null,
+    items: state.items.filter(item => item.id !== action.payload.id),
+  };
 };
 
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
-  reducers: {
-    addContact: (state, action) => {
-      state.items = [...state.items, action.payload];
-    },
-    deleteContact: (state, action) => {
-      state.items = state.items.filter(item => item.id !== action.payload);
-    },
+  extraReducers: {
+    [fetchContacts.pending]: pending,
+    [addContact.pending]: pending,
+    [deleteContact.pending]: pending,
+    [fetchContacts.rejected]: rejected,
+    [addContact.rejected]: rejected,
+    [deleteContact.rejected]: rejected,
+    [fetchContacts.fulfilled]: contactsFetch,
+    [addContact.fulfilled]: addContacts,
+    [deleteContact.fulfilled]: delContacts,
   },
 });
 
-export const { addContact, deleteContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;

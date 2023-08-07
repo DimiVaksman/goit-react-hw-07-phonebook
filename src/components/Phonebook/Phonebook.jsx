@@ -5,19 +5,18 @@ import { FcAddDatabase } from 'react-icons/fc';
 import * as yup from 'yup';
 import { Label, Text, Title, Form } from './Phonebook.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
-import { getContacts } from 'redux/selectors'; 
+// import { addContact } from 'redux/contactsSlice';
+import { selectContacts } from 'redux/selectors';
+import { addContact } from 'redux/operations';
 
 const schema = yup.object().shape({
   name: yup.string().required(),
   number: yup.number().required(),
 });
 
-
-
 export const Phonebook = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -48,7 +47,6 @@ export const Phonebook = () => {
           name: '',
           number: '',
         }}
-
         validationSchema={schema}
       >
         <Form onSubmit={handleSubmit}>
@@ -76,14 +74,13 @@ export const Phonebook = () => {
             />
             <ErrorMessage name="number" component="div" />
           </Label>
-          <button type='submit'>
+          <button type="submit">
             <FcAddDatabase size="16px" />
           </button>
         </Form>
       </Formik>
     </div>
   );
-
 };
 
 Phonebook.propType = {

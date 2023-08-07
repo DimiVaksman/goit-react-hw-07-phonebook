@@ -1,38 +1,61 @@
 import PropTypes from 'prop-types';
-import { ContactsContainer, Items, List, Text } from './Contacts.styled';
+import {
+  ContactsContainer,
+  Items,
+  List,
+  Text,
+  Spinner,
+} from './Contacts.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getFilter } from 'redux/selectors';
-import { deleteContact } from 'redux/contactsSlice';
+import { useEffect } from 'react';
+import {
+  selectFilteredContacts,
+  selectError,
+  selectIsLoading,
+} from 'redux/selectors';
+// import { deleteContact } from 'redux/contactsSlice';
 import { FcDeleteDatabase } from 'react-icons/fc';
+import { fetchContacts, deleteContact } from 'redux/operations';
 
 export const Contacts = () => {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const filteredContacts = useSelector(selectFilteredContacts);
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
-  const filteredContacts = contacts?.filter(contact =>
-    contact?.name?.toLowerCase().includes(filter.toLowerCase())
-  );
+  useEffect(() => {
+    dispatch(fetchContacts()); // діспатчимо екшен
+  }, [dispatch]);
 
   const onDeleteContact = id => {
     dispatch(deleteContact(id));
   };
 
   return (
-    <ContactsContainer>
-      {filteredContacts.map(({ id, name, number }) => (
-        <Items key={id}>
-          <List>
-            <Text>
-              <span>{name}</span> : <span>{number}</span>
-            </Text>
-            <button type="button" onClick={() => onDeleteContact(id)}>
-              <FcDeleteDatabase size="16px" />
-            </button>
-          </List>
-        </Items>
-      ))}
-    </ContactsContainer>
+    <>
+      {isLoading && <Spinner />}
+
+      {!filteredContacts?.length && !error && !isLoading && (
+        <p>No contacts found.</p>
+      )}
+
+      {error && <p>{error}</p>}
+
+      <ContactsContainer>
+        {filteredContacts.map(({ id, name, number }) => (
+          <Items key={id}>
+            <List>
+              <Text>
+                <span>{name}</span> : <span>{number}</span>
+              </Text>
+              <button type="button" onClick={() => onDeleteContact(id)}>
+                <FcDeleteDatabase size="16px" />
+              </button>
+            </List>
+          </Items>
+        ))}
+      </ContactsContainer>
+    </>
   );
 };
 
