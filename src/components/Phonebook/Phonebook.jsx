@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import { FcAddDatabase } from 'react-icons/fc';
 import * as yup from 'yup';
-import { Label, Text, Title, Form } from './Phonebook.styled';
+import { Label, Text,Text2, Title, Form, Button } from './Phonebook.styled';
 import { useDispatch, useSelector } from 'react-redux';
 // import { addContact } from 'redux/contactsSlice';
 import { selectContacts } from 'redux/selectors';
@@ -51,7 +51,7 @@ export const Phonebook = () => {
       >
         <Form onSubmit={handleSubmit}>
           <Label htmlFor={nanoid()}>
-            <Text>Name</Text>
+            <Text>Name:</Text>
             <Field
               type="text"
               name="name"
@@ -63,7 +63,7 @@ export const Phonebook = () => {
             <ErrorMessage name="name" component="div" />
           </Label>
           <Label htmlFor={nanoid()}>
-            <Text>Number</Text>
+            <Text2>Number:</Text2>
             <Field
               type="tel"
               name="number"
@@ -74,9 +74,9 @@ export const Phonebook = () => {
             />
             <ErrorMessage name="number" component="div" />
           </Label>
-          <button type="submit">
+          <Button type="submit">
             <FcAddDatabase size="16px" />
-          </button>
+          </Button>
         </Form>
       </Formik>
     </div>
