@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Form as FormikForm } from 'formik';
-import { ErrorMessage as ErrorMessage } from 'formik';
+// import { ErrorMessage as ErrorMessage } from 'formik';
 
 export const Form = styled(FormikForm)`
   display: flex;
@@ -8,9 +8,9 @@ export const Form = styled(FormikForm)`
   text-align: center;
   flex-direction: column;
 `;
-export const Message = styled(ErrorMessage)`
-  color: red;
-`;
+// export const Message = styled(ErrorMessage)`
+//   color: red;
+// `;
 
 export const Label = styled.label`
   margin-bottom: 15px;

@@ -1,4 +1,4 @@
-import { Formik, Field } from 'formik';
+import { Formik, Field , ErrorMessage} from 'formik';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import { FcAddDatabase } from 'react-icons/fc';
@@ -11,7 +11,6 @@ import {
   Form,
   Button,
   Box,
-  Message,
 } from './Phonebook.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
@@ -68,7 +67,7 @@ export const Phonebook = () => {
               id={nanoid()}
               required
             />
-            <Message name="name" component="div" />
+            <ErrorMessage name="name" component="div" />
           </Label>
           <Label htmlFor={nanoid()}>
             <Text2>Number:</Text2>
@@ -80,7 +79,7 @@ export const Phonebook = () => {
               id={nanoid()}
               required
             />
-            <Message name="name" component="div" />
+            <ErrorMessage name="name" component="div" />
           </Label>
 
           <Button type="submit">
