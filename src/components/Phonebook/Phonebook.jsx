@@ -67,7 +67,7 @@ export const Phonebook = () => {
               id={nanoid()}
               required
             />
-            <ErrorMessage name="name" component="div" />
+            <ErrorMessage style={{color: "red"}} name="name" component="div" />
           </Label>
           <Label htmlFor={nanoid()}>
             <Text2>Number:</Text2>
@@ -79,7 +79,7 @@ export const Phonebook = () => {
               id={nanoid()}
               required
             />
-            <ErrorMessage name="name" component="div" />
+            <ErrorMessage style={{color: "red"}} name="name" component="div" />
           </Label>
 
           <Button type="submit">
