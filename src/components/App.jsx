@@ -7,14 +7,14 @@ import backGr from 'image/phone_035.jpg';
 export const App = () => {
   return (
     <div
-      style={{
+
+    >
+      <Container       style={{
         backgroundImage: `url(${backGr})`,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: '1000px 800px',
         backgroundPosition: 'center top',
-      }}
-    >
-      <Container>
+        backgroundSize: '1200px 1100px',
+      }}>
         <Phonebook />
         <FilterContacts />
         <Contacts />

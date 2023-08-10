@@ -5,6 +5,7 @@ import {
   List,
   Text,
   Spinner,
+  DeleteButton
 } from './Contacts.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -36,7 +37,7 @@ export const Contacts = () => {
       {isLoading && <Spinner />}
 
       {!filteredContacts?.length && !error && !isLoading && (
-        <p>No contacts found.</p>
+        <p style={{color: 'red'}}>No contacts found.</p>
       )}
 
       {error && <p>{error}</p>}
@@ -48,9 +49,9 @@ export const Contacts = () => {
               <Text>
                 <span>{name}</span> : <span>{number}</span>
               </Text>
-              <button type="button" onClick={() => onDeleteContact(id)}>
-                <FcDeleteDatabase size="16px" />
-              </button>
+              <DeleteButton type="button" onClick={() => onDeleteContact(id)}>
+                <FcDeleteDatabase size="16px" /> Delete
+              </DeleteButton>
             </List>
           </Items>
         ))}

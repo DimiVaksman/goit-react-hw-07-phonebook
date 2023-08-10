@@ -12,7 +12,6 @@ export const FilterContacts = () => {
   return (
     <InputFilter>
       <label htmlFor="">
-        {' '}
         <TextFilter>Filter</TextFilter>
         <input type="text" value={filter} id="" onChange={event => dispatch(setFilter(event.target.value.trim()))} />
       </label>

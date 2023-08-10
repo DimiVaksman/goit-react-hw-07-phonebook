@@ -38,3 +38,13 @@ export const Spinner = styled.div`
 
   animation: ${spin} 1s ease-in-out infinite;
 `;
+export const DeleteButton = styled.button`
+border-radius: 50px;
+background-color: white;
+border-left: 10px solid red;
+    cursor: pointer;
+&:hover {
+  background-color: red;
+  color: red;
+}
+  `
